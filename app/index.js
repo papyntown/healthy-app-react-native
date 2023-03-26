@@ -7,13 +7,19 @@ import ScreenHeaderBtn from "../components/common/header/ScreenHeaderBtn";
 import Welcome from "../components/home/welcome/Welcome";
 
 import styles from "./index.style";
+import Mealplan from "../components/home/mealplan/Mealplan";
 
 const Home = () => {
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
+        <SafeAreaView
+            style={{
+                flex: 1,
+                backgroundColor: COLORS.background,
+            }}>
             <Stack.Screen
                 options={{
-                    headerStyle: { backgroundColor: "none" },
+                    // headerTransparent: true,
+                    headerStyle: { backgroundColor: COLORS.headline },
                     headerShadowVisible: false,
                     headerLeft: () => (
                         <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
@@ -28,9 +34,15 @@ const Home = () => {
                 }}
             />
             <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={{ flex: 1, padding: SIZES.medium }}>
+                <View
+                    style={{
+                        flex: 1,
+                        padding: SIZES.medium,
+                        paddingTop: 0,
+                    }}>
                     <View style={styles.circle} />
                     <Welcome />
+                    <Mealplan />
                 </View>
             </ScrollView>
         </SafeAreaView>
