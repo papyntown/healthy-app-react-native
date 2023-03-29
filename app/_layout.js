@@ -1,7 +1,8 @@
-import { Stack } from "expo-router";
+import { Stack, Tabs } from "expo-router";
 import { useCallback } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { COLORS } from "../constants";
 
 // On va faire en sorte de montrer l'ecran que si la font est prete
 SplashScreen.preventAutoHideAsync();
@@ -21,7 +22,16 @@ const Layout = () => {
         }
     }, [fontsLoaded]);
     if (!fontsLoaded) return null;
-    return <Stack onLayout={onLayoutRootView} />;
+    return (
+        <Stack
+            onLayout={onLayoutRootView}
+            screenOptions={{
+                headerStyle: { backgroundColor: COLORS.secondary },
+                headerTintColor: COLORS.black,
+            }}>
+            <Stack.Screen name="main" options={{ headerShown: false }} />
+        </Stack>
+    );
 };
 
 export default Layout;
