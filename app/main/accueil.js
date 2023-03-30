@@ -2,21 +2,12 @@ import { useState } from "react";
 import { View, ScrollView, SafeAreaView, Text } from "react-native";
 import { Link, Stack, useRouter } from "expo-router";
 import Welcome from "../../components/home/welcome/Welcome";
-import Mealplan from "../../components/home/mealplan/Mealplan";
 import { COLORS, icons, images, SIZES } from "../../constants";
 
 import React from "react";
 import { StyleSheet } from "react-native";
 
 const Home = () => {
-    // const users = [
-    //     { name: "Baills", surname: "Antony" },
-    //     {
-    //         name: "Fish",
-    //         surname: "Morgane",
-    //     },
-    //     { name: "Bollaro", surname: "Dylan" },
-    // ];
     return (
         <SafeAreaView
             style={{
@@ -32,7 +23,6 @@ const Home = () => {
                     }}>
                     <View style={styles.circle} />
                     <Welcome />
-                    <Mealplan />
                 </View>
             </ScrollView>
         </SafeAreaView>

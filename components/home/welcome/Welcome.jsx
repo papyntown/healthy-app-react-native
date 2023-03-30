@@ -6,19 +6,39 @@ import {
     TouchableOpacity,
     Image,
     FlatList,
+    ActivityIndicator,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { Entypo } from "@expo/vector-icons";
 
 import styles from "./welcome.style";
 import { icons, images, SIZES, FONT, COLORS } from "../../../constants";
 import { Dimensions } from "react-native";
 import { Input } from "@rneui/themed";
+import { Button } from "@rneui/themed";
+import ListMealplan from "../mealplan/ListMealplan";
+import axios from "axios";
 
 const screenHeight = Dimensions.get("window").height;
 
 const Welcome = () => {
-    const [inputValue, setInputValue] = useState();
+    const [mealData, setMealData] = useState();
+    const [calories, setCalories] = useState(2200);
     const [inputValueFocused, setInputValueFocused] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const getMealData = async () => {
+        axios
+            .get(
+                `https://api.spoonacular.com/mealplanner/generate?apiKey=cbfbc351957c444aba94f906fdf811e5&timeFrame=day&targetCalories=${calories}`
+            )
+            .then((res) => {
+                setMealData(res.data);
+                console.log(res.data);
+                setIsLoading(false);
+            })
+            .catch((err) => console.log(err));
+    };
     return (
         <View>
             <View style={styles.containerFirst(screenHeight)}>
@@ -39,6 +59,7 @@ const Welcome = () => {
                         Trouve le plan alimentaire qui te correspond !
                     </Text>
                     <Input
+                        onSubmitEditing={() => getMealData()}
                         containerStyle={{}}
                         disabledInputStyle={{ background: "#004643" }}
                         inputContainerStyle={{
@@ -55,16 +76,30 @@ const Welcome = () => {
                         label="Insérer le nombre de calories souhaité"
                         labelStyle={{ fontSize: 24, color: COLORS.paragraph }}
                         leftIconContainerStyle={{}}
+                        rightIcon={
+                            <Entypo
+                                name="check"
+                                size={24}
+                                color={COLORS.link}
+                                onPress={() => getMealData()}
+                            />
+                        }
                         rightIconContainerStyle={{}}
                         placeholder="2200 (Kcal)"
-                        value={inputValue}
+                        value={calories}
                         keyboardType="numeric"
-                        onChangeText={setInputValue}
+                        onChangeText={setCalories}
                     />
                 </View>
-
-                {/* pour que le ecrire <KeyboardAvoidingView/> */}
             </View>
+            {/* si Meal data alors tu verifie que le loading est fini */}
+            {mealData ? (
+                isLoading ? (
+                    <ActivityIndicator size="large" color={COLORS.primary} />
+                ) : (
+                    <ListMealplan mealData={mealData} />
+                )
+            ) : null}
         </View>
     );
 };

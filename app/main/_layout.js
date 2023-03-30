@@ -12,7 +12,7 @@ const Layout = () => {
             screenOptions={{
                 tabBarShowLabel: false,
                 tabBarActiveTintColor: COLORS.secondary,
-                headerShown: true,
+                headerShown: false,
             }}>
             <Tabs.Screen
                 name="accueil"

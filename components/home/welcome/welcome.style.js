@@ -37,6 +37,9 @@ const styles = StyleSheet.create({
     input: {
         fontSize: SIZES.xLarge,
     },
+    buttonPressed: {
+        transform: [{ scale: 1 }],
+    },
 });
 
 export default styles;
