@@ -4,7 +4,7 @@ import { COLORS, FONT, SIZES } from "../../../constants";
 
 const styles = StyleSheet.create({
     containerFirst: (screenHeight) => ({
-        height: screenHeight,
+        height: screenHeight - 11,
         // borderWidth: 1,
         // borderColor: "blue",
     }),

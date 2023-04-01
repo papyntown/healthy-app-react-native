@@ -25,19 +25,20 @@ const Welcome = () => {
     const [mealData, setMealData] = useState();
     const [calories, setCalories] = useState(2200);
     const [inputValueFocused, setInputValueFocused] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const getMealData = async () => {
-        axios
+        setIsLoading(true);
+        await axios
             .get(
                 `https://api.spoonacular.com/mealplanner/generate?apiKey=cbfbc351957c444aba94f906fdf811e5&timeFrame=day&targetCalories=${calories}`
             )
             .then((res) => {
                 setMealData(res.data);
                 console.log(res.data);
-                setIsLoading(false);
             })
             .catch((err) => console.log(err));
+        setIsLoading(false);
     };
     return (
         <View>
@@ -86,20 +87,20 @@ const Welcome = () => {
                         }
                         rightIconContainerStyle={{}}
                         placeholder="2200 (Kcal)"
-                        value={calories}
+                        value={`${calories}`}
                         keyboardType="numeric"
                         onChangeText={setCalories}
                     />
                 </View>
             </View>
             {/* si Meal data alors tu verifie que le loading est fini */}
-            {mealData ? (
-                isLoading ? (
-                    <ActivityIndicator size="large" color={COLORS.primary} />
-                ) : (
+            {!isLoading ? (
+                mealData ? (
                     <ListMealplan mealData={mealData} />
-                )
-            ) : null}
+                ) : null
+            ) : (
+                <ActivityIndicator size="large" color={COLORS.primary} />
+            )}
         </View>
     );
 };

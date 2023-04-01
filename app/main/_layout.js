@@ -2,6 +2,7 @@ import { Tabs } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { Entypo } from "@expo/vector-icons";
 import { COLORS } from "../../constants";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 // On va faire en sorte de montrer l'ecran que si la font est prete
 SplashScreen.preventAutoHideAsync();
@@ -12,7 +13,10 @@ const Layout = () => {
             screenOptions={{
                 tabBarShowLabel: false,
                 tabBarActiveTintColor: COLORS.secondary,
-                headerShown: false,
+                headerShown: true,
+
+                headerStyle: { height: 50 },
+                title: "",
             }}>
             <Tabs.Screen
                 name="accueil"

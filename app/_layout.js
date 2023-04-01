@@ -24,12 +24,16 @@ const Layout = () => {
     if (!fontsLoaded) return null;
     return (
         <Stack
-            onLayout={onLayoutRootView}
+            // onLayout={onLayoutRootView}
+            // screenOptions={{
+            //     headerStyle: { backgroundColor: COLORS.secondary },
+            //     headerTintColor: COLORS.black,
+            //     headerStatusBarHeight: 0, // définit la hauteur de l'en-tête sur 0
+            // }}
             screenOptions={{
-                headerStyle: { backgroundColor: COLORS.secondary },
-                headerTintColor: COLORS.black,
+                headerShown: false,
             }}>
-            <Stack.Screen name="main" options={{ headerShown: false }} />
+            <Stack.Screen name="main" options={{}} />
         </Stack>
     );
 };

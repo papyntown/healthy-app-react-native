@@ -6,6 +6,7 @@ const COLORS = {
     main: "#e8e4e6",
     link: "#f9bc60",
     black: "#001e1d",
+    tertiary: "#e16162",
 };
 
 const FONT = {
