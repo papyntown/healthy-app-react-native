@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
     View,
     Text,
     TextInput,
     TouchableOpacity,
     Image,
+    ScrollView,
     FlatList,
     ActivityIndicator,
 } from "react-native";
@@ -26,6 +27,7 @@ const Welcome = () => {
     const [calories, setCalories] = useState(2200);
     const [inputValueFocused, setInputValueFocused] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const scrollViewRef = useRef();
 
     const getMealData = async () => {
         setIsLoading(true);
@@ -75,7 +77,10 @@ const Welcome = () => {
                             inputValueFocused ? { color: COLORS.headline } : {},
                         ]}
                         label="Insérer le nombre de calories souhaité"
-                        labelStyle={{ fontSize: 24, color: COLORS.paragraph }}
+                        labelStyle={{
+                            fontSize: 24,
+                            color: COLORS.paragraph,
+                        }}
                         leftIconContainerStyle={{}}
                         rightIcon={
                             <Entypo

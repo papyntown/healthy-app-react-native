@@ -1,4 +1,4 @@
-import { Tabs } from "expo-router";
+import { Stack, Tabs } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { Entypo } from "@expo/vector-icons";
 import { COLORS } from "../../constants";
@@ -14,9 +14,8 @@ const Layout = () => {
                 tabBarShowLabel: false,
                 tabBarActiveTintColor: COLORS.secondary,
                 headerShown: true,
-
                 headerStyle: { height: 50 },
-                title: "",
+                // title: "",
             }}>
             <Tabs.Screen
                 name="accueil"
