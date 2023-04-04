@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { View, ScrollView, SafeAreaView, Text } from "react-native";
+import { StatusBar as ExpoStatusBar } from "expo-status-bar";
+import { View, ScrollView, SafeAreaView, Text, StatusBar } from "react-native";
 import { Link, Stack, useRouter } from "expo-router";
 import Welcome from "../../components/home/welcome/Welcome";
 import { COLORS, icons, images, SIZES } from "../../constants";
@@ -13,6 +14,8 @@ const Home = () => {
             style={{
                 flex: 1,
                 backgroundColor: COLORS.background,
+                // Je l'empeche d'aller sur ma status bar
+                marginTop: StatusBar.currentHeight,
             }}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View

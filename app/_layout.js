@@ -23,17 +23,9 @@ const Layout = () => {
     }, [fontsLoaded]);
     if (!fontsLoaded) return null;
     return (
-        <Stack
-            onLayout={onLayoutRootView}
-            // screenOptions={{
-            //     headerStyle: { backgroundColor: COLORS.secondary },
-            //     headerTintColor: COLORS.black,
-            //     headerStatusBarHeight: 0, // définit la hauteur de l'en-tête sur 0
-            // }}
-            screenOptions={{
-                headerShown: true,
-            }}>
+        <Stack onLayout={onLayoutRootView} screenOptions={{}}>
             <Stack.Screen name="main" options={{ headerShown: false }} />
+            <Stack.Screen name="modal" options={{ presentation: "modal" }} />
         </Stack>
     );
 };
