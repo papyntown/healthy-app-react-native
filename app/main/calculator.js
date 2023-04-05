@@ -5,6 +5,7 @@ import {
     StyleSheet,
     StatusBar,
     ScrollView,
+    Dimensions,
 } from "react-native";
 import React from "react";
 import { COLORS, icons, images, SIZES } from "../../constants";
@@ -17,9 +18,26 @@ const calculator = () => {
         <SafeAreaView
             style={{
                 flex: 1,
-                backgroundColor: COLORS.secondary,
-                marginTop: StatusBar.currentHeight,
+                backgroundColor: COLORS.main,
             }}>
+            <View
+                style={{
+                    position: "absolute",
+                    top: -50,
+                    left: -100,
+                    right: 0,
+                    height: 2500,
+                    overflow: "hidden",
+                }}>
+                <View
+                    style={{
+                        backgroundColor: COLORS.secondary,
+                        height: 160,
+                        transform: [{ skewY: "342deg" }],
+                    }}
+                />
+            </View>
+
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View
                     style={{
@@ -30,11 +48,27 @@ const calculator = () => {
                     <Calculator />
                 </View>
             </ScrollView>
+            <View
+                style={{
+                    position: "absolute",
+                    top: 600,
+                    left: -440,
+                    right: -500,
+                    height: 2000,
+                }}>
+                <View
+                    style={{
+                        backgroundColor: COLORS.secondary,
+                        height: 460,
+                        transform: [{ skewY: "342deg" }],
+                    }}
+                />
+            </View>
         </SafeAreaView>
     );
 };
 const styles = StyleSheet.create({
-    blabla: {},
+    circle: {},
 });
 
 export default calculator;
