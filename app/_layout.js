@@ -26,6 +26,7 @@ const Layout = () => {
         <Stack onLayout={onLayoutRootView} screenOptions={{}}>
             <Stack.Screen name="main" options={{ headerShown: false }} />
             <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+            <Stack.Screen name="info" options={{ presentation: "modal" }} />
         </Stack>
     );
 };

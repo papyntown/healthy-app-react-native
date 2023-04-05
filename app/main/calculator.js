@@ -18,7 +18,7 @@ const calculator = () => {
         <SafeAreaView
             style={{
                 flex: 1,
-                backgroundColor: COLORS.main,
+                backgroundColor: COLORS.headline,
             }}>
             <View
                 style={{
@@ -55,12 +55,14 @@ const calculator = () => {
                     left: -440,
                     right: -500,
                     height: 2000,
+                    zIndex: -2,
                 }}>
                 <View
                     style={{
                         backgroundColor: COLORS.secondary,
                         height: 460,
                         transform: [{ skewY: "342deg" }],
+                        zIndex: -2,
                     }}
                 />
             </View>

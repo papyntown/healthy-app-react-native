@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet } from "react-native";
+import {
+    View,
+    Text,
+    StyleSheet,
+    StatusBar,
+    TouchableOpacity,
+} from "react-native";
 import React from "react";
 import { useState } from "react";
 
@@ -9,6 +15,8 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { COLORS, imagesArray } from "../../constants";
 import { Image } from "react-native";
 import styles from "./calculator.style";
+import { StatusBar as ExpoStatusBar } from "expo-status-bar";
+import { useRouter } from "expo-router";
 
 const Calculator = () => {
     const [sexe, setSexe] = useState("");
@@ -17,6 +25,7 @@ const Calculator = () => {
     const [tall, setTall] = useState("168");
     const [calories, setCalories] = useState();
     const [physicalActivity, setPhysicalActivity] = useState();
+    const router = useRouter();
 
     const agesArray = [];
     const tallsArray = [];
@@ -31,19 +40,34 @@ const Calculator = () => {
         weightsArray.push(i.toString());
     }
 
+    const calculateCalories = () => {
+        let calories;
+        if (sexe === "homme") {
+            calories = 66.47 + 13.75 * weight + 5.003 * tall - 6.755 * age;
+        } else {
+            calories = 655.1 + 9.563 * weight + 1.85 * tall - 4.676 * age;
+        }
+        calories = Math.round(calories * physicalActivity);
+        setCalories(calories);
+    };
+
     return (
-        <View>
-            <View style={styles.icon}>
+        <View style={{ marginTop: StatusBar.currentHeight }}>
+            <TouchableOpacity
+                style={styles.icon}
+                // onPress={() => router.push("/info")}
+            >
                 <Ionicons
                     name="information-circle-outline"
-                    size={24}
+                    size={34}
                     color={COLORS.link}
                 />
-            </View>
+            </TouchableOpacity>
             <View style={styles.header}>
                 <Text style={styles.title}>
+                    {/* Calcule tes calories avec notre outil ! */}
                     Calcule facilement tes apports caloriques journaliers grâce
-                    à notre outil intégré !{" "}
+                    à notre outil intégré !
                 </Text>
             </View>
             <View style={styles.pickerContainer}>
@@ -52,13 +76,13 @@ const Calculator = () => {
                         <MaterialCommunityIcons
                             name="gender-male"
                             size={24}
-                            color="black"
+                            color={COLORS.background}
                         />
                     ) : (
                         <MaterialCommunityIcons
                             name="gender-female"
                             size={24}
-                            color="black"
+                            color={COLORS.background}
                         />
                     )}
                     <Picker
@@ -66,13 +90,21 @@ const Calculator = () => {
                         style={[styles.picker, styles.leftPicker]}
                         onValueChange={(itemValue) => setSexe(itemValue)}
                         dropdownIconColor={COLORS.link}>
-                        <Picker.Item label="Homme" value="homme" />
-                        <Picker.Item label={"Femme"} value="femme" />
+                        <Picker.Item
+                            label="Homme"
+                            style={styles.pickerItem}
+                            value="homme"
+                        />
+                        <Picker.Item
+                            label={"Femme"}
+                            style={styles.pickerItem}
+                            value="femme"
+                        />
                     </Picker>
                     <MaterialCommunityIcons
                         name="timer-sand-empty"
                         size={24}
-                        color="black"
+                        color={COLORS.background}
                     />
                     <Picker
                         selectedValue={age}
@@ -80,7 +112,12 @@ const Calculator = () => {
                         onValueChange={(itemValue) => setAge(itemValue)}
                         dropdownIconColor={COLORS.link}>
                         {agesArray.map((age) => (
-                            <Picker.Item label={age} value={age} key={age} />
+                            <Picker.Item
+                                label={age}
+                                style={styles.pickerItem}
+                                value={age}
+                                key={age}
+                            />
                         ))}
                     </Picker>
                 </View>
@@ -88,7 +125,7 @@ const Calculator = () => {
                     <MaterialCommunityIcons
                         name="human-male-height-variant"
                         size={24}
-                        color="black"
+                        color={COLORS.background}
                     />
                     <Picker
                         selectedValue={tall}
@@ -96,10 +133,20 @@ const Calculator = () => {
                         onValueChange={(itemValue) => setTall(itemValue)}
                         dropdownIconColor={COLORS.link}>
                         {tallsArray.map((tall) => (
-                            <Picker.Item label={tall} value={tall} key={tall} />
+                            <Picker.Item
+                                label={tall}
+                                value={tall}
+                                key={tall}
+                                style={styles.pickerItem}
+                            />
                         ))}
                     </Picker>
-                    <FontAwesome5 name="weight" size={24} color="black" />
+
+                    <FontAwesome5
+                        name="weight"
+                        size={24}
+                        color={COLORS.background}
+                    />
                     <Picker
                         selectedValue={weight}
                         style={[styles.picker, styles.rightPicker]}
@@ -110,11 +157,17 @@ const Calculator = () => {
                                 label={weight}
                                 value={weight}
                                 key={weight}
+                                style={styles.pickerItem}
                             />
                         ))}
                     </Picker>
                 </View>
-                <View>
+                <View style={styles.pickerWrapper}>
+                    <FontAwesome5
+                        name="running"
+                        size={24}
+                        color={COLORS.background}
+                    />
                     <Picker
                         selectedValue={physicalActivity}
                         style={[styles.picker, styles.pickerActivity]}
@@ -124,28 +177,40 @@ const Calculator = () => {
                         itemStyle={{ backgroundColor: COLORS.background }}
                         dropdownIconColor={COLORS.link}>
                         <Picker.Item
+                            style={styles.pickerItem}
                             label={"Peu ou pas d'exercice/sport"}
                             value={1.15}
                         />
                         <Picker.Item
+                            style={styles.pickerItem}
                             label={"1-2 fois par semaine"}
                             value={1.25}
                         />
                         <Picker.Item
+                            style={styles.pickerItem}
                             label={"3-5 fois par semaine"}
                             value={1.4}
                         />
                         <Picker.Item
+                            style={styles.pickerItem}
                             label={"6-7 fois par semaine"}
                             value={1.55}
                         />
                         <Picker.Item
-                            label={"6-7 fois par semaine & travail physique"}
+                            style={styles.pickerItem}
+                            label={"6-7 fois par semaine & +"}
                             value={1.7}
                         />
                     </Picker>
                 </View>
             </View>
+            <TouchableOpacity
+                style={styles.buttonContainer}
+                onPress={() => calculateCalories()}>
+                <Text style={styles.buttonText}>Calculer</Text>
+            </TouchableOpacity>
+            {/* {calories && <Text style={styles.calories}>{calories}</Text>} */}
+            <Text>{calories} </Text>
         </View>
     );
 };

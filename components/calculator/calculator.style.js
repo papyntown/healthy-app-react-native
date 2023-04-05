@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: FONT.bold,
         fontSize: SIZES.xxLarge,
-        color: COLORS.headline,
+        color: COLORS.black,
         textAlign: "center",
         paddingVertical: 40,
     },
@@ -30,12 +30,28 @@ const styles = StyleSheet.create({
     },
     picker: {
         flex: 1,
+    },
+    pickerItem: {
         fontSize: SIZES.large,
-        fontWeight: FONT.bold,
+        textAlign: "center",
         color: COLORS.background,
     },
+
     pickerActivity: {
         //j'aimerais que le texte soit au centre
+    },
+    buttonContainer: {
+        marginTop: 30,
+        backgroundColor: COLORS.link,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+    },
+    buttonText: {
+        color: COLORS.headline,
+        fontSize: SIZES.large,
+        fontWeight: "bold",
+        textAlign: "center",
     },
 });
 export default styles;
