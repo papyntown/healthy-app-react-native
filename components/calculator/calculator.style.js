@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
         fontSize: SIZES.xxLarge,
         color: COLORS.black,
         textAlign: "center",
-        paddingVertical: 40,
+        paddingTop: 40,
+        marginBottom: 20,
     },
     pickerContainer: {
         // backgroundColor: COLORS.secondary,
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
         //j'aimerais que le texte soit au centre
     },
     buttonContainer: {
-        marginTop: 30,
+        marginTop: 0,
         backgroundColor: COLORS.link,
         paddingVertical: 10,
         paddingHorizontal: 20,

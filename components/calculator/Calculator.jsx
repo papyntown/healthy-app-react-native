@@ -17,6 +17,7 @@ import { Image } from "react-native";
 import styles from "./calculator.style";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
+import ArrayCalories from "./arrayCalories/ArrayCalories";
 
 const Calculator = () => {
     const [sexe, setSexe] = useState("");
@@ -24,7 +25,7 @@ const Calculator = () => {
     const [age, setAge] = useState("18");
     const [tall, setTall] = useState("168");
     const [calories, setCalories] = useState();
-    const [physicalActivity, setPhysicalActivity] = useState();
+    const [physicalActivity, setPhysicalActivity] = useState(1.15);
     const router = useRouter();
 
     const agesArray = [];
@@ -43,10 +44,19 @@ const Calculator = () => {
     const calculateCalories = () => {
         let calories;
         if (sexe === "homme") {
-            calories = 66.47 + 13.75 * weight + 5.003 * tall - 6.755 * age;
+            calories =
+                10 * parseFloat(weight) +
+                6.25 * parseFloat(tall) -
+                5 * parseFloat(age) +
+                5;
         } else {
-            calories = 655.1 + 9.563 * weight + 1.85 * tall - 4.676 * age;
+            calories =
+                10 * parseFloat(weight) +
+                6.25 * parseFloat(tall) -
+                5 * parseFloat(age) -
+                161;
         }
+
         calories = Math.round(calories * physicalActivity);
         setCalories(calories);
     };
@@ -209,8 +219,7 @@ const Calculator = () => {
                 onPress={() => calculateCalories()}>
                 <Text style={styles.buttonText}>Calculer</Text>
             </TouchableOpacity>
-            {/* {calories && <Text style={styles.calories}>{calories}</Text>} */}
-            <Text>{calories} </Text>
+            {calories && <ArrayCalories calories={calories} />}
         </View>
     );
 };

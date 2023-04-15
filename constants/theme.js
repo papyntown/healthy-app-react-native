@@ -1,6 +1,7 @@
 const COLORS = {
     background: "#004643",
     secondary: "#abd1c6",
+    variantsSecondary: "#A2EFE0",
     headline: "#fffffe",
     paragraph: "#abd1c6",
     main: "#e8e4e6",
