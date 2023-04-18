@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
     View,
     Text,
@@ -9,9 +9,10 @@ import {
     FlatList,
     ActivityIndicator,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { Entypo } from "@expo/vector-icons";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "./welcome.style";
 import { icons, images, SIZES, FONT, COLORS } from "../../../constants";
 import { Dimensions } from "react-native";
@@ -24,7 +25,7 @@ const screenHeight = Dimensions.get("window").height;
 
 const Welcome = () => {
     const [mealData, setMealData] = useState();
-    const [calories, setCalories] = useState(2200);
+    const [calories, setCalories] = useState(1900);
     const [inputValueFocused, setInputValueFocused] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const scrollViewRef = useRef();
@@ -42,6 +43,20 @@ const Welcome = () => {
             .catch((err) => console.log(err));
         setIsLoading(false);
     };
+    const getCaloricMaintenanceValue = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem(
+                "@caloric-maintenance"
+            );
+            return jsonValue != null
+                ? setCalories(JSON.parse(jsonValue))
+                : null;
+        } catch (e) {
+            // read error
+        }
+        console.log(caloriesCalculed, caloriesCalculed);
+    };
+
     return (
         <View>
             <View style={styles.containerFirst(screenHeight)}>
@@ -83,12 +98,20 @@ const Welcome = () => {
                         }}
                         leftIconContainerStyle={{}}
                         rightIcon={
-                            <Entypo
-                                name="check"
-                                size={24}
-                                color={COLORS.link}
-                                onPress={() => getMealData()}
-                            />
+                            <View style={{ flexDirection: "row-reverse" }}>
+                                <Entypo
+                                    name="check"
+                                    size={30}
+                                    color={COLORS.link}
+                                    onPress={() => getMealData()}
+                                />
+                                <Ionicons
+                                    name="md-nutrition-outline"
+                                    size={30}
+                                    color={COLORS.link}
+                                    onPress={() => getCaloricMaintenanceValue()}
+                                />
+                            </View>
                         }
                         rightIconContainerStyle={{}}
                         placeholder="2200 (Kcal)"

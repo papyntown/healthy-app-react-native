@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { View, ScrollView, SafeAreaView, Text, StatusBar } from "react-native";
-import { Link, Stack, useRouter } from "expo-router";
+import { Link, Stack } from "expo-router";
 import Welcome from "../../components/home/welcome/Welcome";
 import { COLORS, icons, images, SIZES } from "../../constants";
-
 import React from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StyleSheet } from "react-native";
 
 const Home = () => {
+    // Conserve les calories calculée dans le calculator
     return (
         <SafeAreaView
             style={{

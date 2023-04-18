@@ -1,7 +1,7 @@
-import { View, Text } from "react-native";
+import { View, Text, Image, TouchableOpacity, Linking } from "react-native";
 import React from "react";
 
-const modal = () => {
+const modal = ({}) => {
     return (
         <View>
             <Text>modal</Text>

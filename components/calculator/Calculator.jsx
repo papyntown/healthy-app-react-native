@@ -18,6 +18,7 @@ import styles from "./calculator.style";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
 import ArrayCalories from "./arrayCalories/ArrayCalories";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Calculator = () => {
     const [sexe, setSexe] = useState("");
@@ -40,6 +41,28 @@ const Calculator = () => {
     for (let i = 40; i <= 120; i++) {
         weightsArray.push(i.toString());
     }
+    setCaloricMaintenanceValue = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value);
+            await AsyncStorage.setItem("@caloric-maintenance", jsonValue);
+        } catch (e) {
+            // save error
+        }
+
+        console.log("Votre maintenance calorique a etait prise en compte.");
+    };
+    getCaloricMaintenanceValue = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem(
+                "@caloric-maintenance"
+            );
+            return jsonValue != null ? JSON.parse(jsonValue) : null;
+        } catch (e) {
+            // read error
+        }
+
+        console.log("Vous avez recuperez votre total calorique.");
+    };
 
     const calculateCalories = () => {
         let calories;
@@ -59,6 +82,7 @@ const Calculator = () => {
 
         calories = Math.round(calories * physicalActivity);
         setCalories(calories);
+        setCaloricMaintenanceValue(calories);
     };
 
     return (
@@ -219,6 +243,7 @@ const Calculator = () => {
                 onPress={() => calculateCalories()}>
                 <Text style={styles.buttonText}>Calculer</Text>
             </TouchableOpacity>
+
             {calories && <ArrayCalories calories={calories} />}
         </View>
     );
